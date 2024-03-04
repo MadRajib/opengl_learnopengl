@@ -8,22 +8,6 @@
 void framebuffer_size_callback(GLFWwindow* win, int width, int height);
 void processInput(GLFWwindow *win);
 
-const char *vertexShaderSrc =
-    "#version 330\n"
-    "layout (location = 0) in vec3 aPos;\n"
-    "void main()\n"
-    "{\n"
-    "   gl_Position =  vec4(aPos.x, aPos.y, aPos.z, 1.0f);\n"
-    "}\0";
-
-const char *fragmentShaderSrc =
-    "#version 330\n"
-    "out vec4 FragColor;\n"
-    "void main()\n"
-    "{\n"
-    "   FragColor =  vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-    "}\0";
-
 int main(void) {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -44,26 +28,7 @@ int main(void) {
     }
     glViewport(0, 0, 800, 600);
     glfwSetFramebufferSizeCallback(win, framebuffer_size_callback);
-   
-    /*
-    unsigned int vertexShader;
-    unsigned int fragmentShader;
-
-    vertexShader =  glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderSrc, NULL);
-    glCompileShader(vertexShader);
-
-    fragmentShader =  glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentShaderSrc, NULL);
-    glCompileShader(fragmentShader);
-
-    unsigned int shaderPrg;
-    shaderPrg =  glCreateProgram();
-
-    glAttachShader(shaderPrg, vertexShader);
-    glAttachShader(shaderPrg, fragmentShader);
-    */
-    
+       
     shader_t shader;
     shader_parse_compile(&shader, "/home/madrajib/workspace/Courses/opengl/sat_mar_2/src/vertex.vs", "/home/madrajib/workspace/Courses/opengl/sat_mar_2/src/fragment.fs");
 
@@ -85,8 +50,6 @@ int main(void) {
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
-
-    //glLinkProgram(shaderPrg);
 
     while(!glfwWindowShouldClose(win)) {
         // inputs
