@@ -1,11 +1,6 @@
 #ifndef _SHADER_H_
 #define _SHADER_H_
-
-#include <stdlib.h>
-#include <stdio.h>
 #include <stdbool.h>
-#include <errno.h>
-#include "glad.h"
 
 typedef enum {
     VERTEX,

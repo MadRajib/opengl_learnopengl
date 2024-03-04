@@ -1,3 +1,7 @@
+#include <errno.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include "glad.h"
 #include "shader.h"
 
 static void checkCompileErrors(unsigned int shader, shader_type_t type) {
@@ -21,22 +25,28 @@ static void checkCompileErrors(unsigned int shader, shader_type_t type) {
 
 void shader_parse_compile(shader_t *shader, const char* vertexPath, const char* fragmentPath) {
     errno = 0;
-    FILE* file = fopen(vertexPath, "r");
+    FILE* file = NULL;
+    char *vertShader =  NULL;
+    char *fragShader = NULL;
+    unsigned int size = 0;
+
+    /* read vertex shader code*/
+    file = fopen(vertexPath, "r");
     if(!file) {
         fprintf(stderr, "enable to open the file error :%d\n", errno);
         exit(-1);
     }
 
     fseek(file, 0, SEEK_END);
-    unsigned int size =  ftell(file) + 1;
+    size =  ftell(file) + 1;
     rewind(file);
 
-    char vertShader[size];
+    vertShader = (char *)malloc(size + 1);
     size = fread(vertShader, sizeof(char), size, file);
     vertShader[size] = '\0';
     fclose(file);
-
-    const char* vShaderCode = (const char *)vertShader;
+    
+    /* read fragment shader code*/
     errno = 0;
     file = fopen(fragmentPath, "r");
     if(!file) {
@@ -48,21 +58,25 @@ void shader_parse_compile(shader_t *shader, const char* vertexPath, const char* 
     size =  ftell(file) + 1;
     rewind(file);
 
-    char fragShader[size + 1];
+    fragShader = (char *)malloc(size + 1);
     size = fread(fragShader, sizeof(char), size, file);
     fragShader[size] = '\0';
     fclose(file);
-    const char* fShaderCode = (const char *)fragShader;
+
+
+
+    const char* vertCode = (const char *)vertShader;
+    const char* fragCode = (const char *)fragShader;
     
     // 2. compile shaders
     unsigned int vert, frag;
     vert = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vert, 1, &vShaderCode, NULL);
+    glShaderSource(vert, 1, &vertCode, NULL);
     glCompileShader(vert);
     checkCompileErrors(vert, VERTEX);
 
     frag = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(frag, 1, &fShaderCode, NULL);
+    glShaderSource(frag, 1, &fragCode, NULL);
     glCompileShader(frag);
     checkCompileErrors(frag, FRAGMENT);
 
@@ -72,8 +86,12 @@ void shader_parse_compile(shader_t *shader, const char* vertexPath, const char* 
     glLinkProgram(shader->ID); 
     checkCompileErrors(shader->ID, PROGRAM);
     
+
+    /*delete the shaders*/
     glDeleteShader(vert);
     glDeleteShader(frag);
+    free(vertShader);
+    free(fragShader);
 }
 
 void shader_use(shader_t *shader) {
