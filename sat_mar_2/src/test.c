@@ -5,6 +5,10 @@
 #include <stdio.h>
 #include "shader.h"
 
+#define SHADER_FILES_DIR "/home/madrajib/workspace/Courses/opengl/sat_mar_2/src" 
+#define VERTEX_SHADER_PATH SHADER_FILES_DIR "/vertex.vs"
+#define FRAGMENT_SHADER_PATH SHADER_FILES_DIR "/fragment.fs"
+
 void framebuffer_size_callback(GLFWwindow* win, int width, int height);
 void processInput(GLFWwindow *win);
 
@@ -30,7 +34,7 @@ int main(void) {
     glfwSetFramebufferSizeCallback(win, framebuffer_size_callback);
        
     shader_t shader;
-    shader_parse_compile(&shader, "/home/madrajib/workspace/Courses/opengl/sat_mar_2/src/vertex.vs", "/home/madrajib/workspace/Courses/opengl/sat_mar_2/src/fragment.fs");
+    shader_parse_compile(&shader, VERTEX_SHADER_PATH, FRAGMENT_SHADER_PATH);
 
     // set up vertex data
     float vertices[] = {

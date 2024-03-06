@@ -33,7 +33,7 @@ void shader_parse_compile(shader_t *shader, const char* vertexPath, const char* 
     /* read vertex shader code*/
     file = fopen(vertexPath, "r");
     if(!file) {
-        fprintf(stderr, "enable to open the file error :%d\n", errno);
+        fprintf(stderr, "enable to open the file %s error :%d\n", vertexPath, errno);
         exit(-1);
     }
 
@@ -50,7 +50,7 @@ void shader_parse_compile(shader_t *shader, const char* vertexPath, const char* 
     errno = 0;
     file = fopen(fragmentPath, "r");
     if(!file) {
-        fprintf(stderr, "enable to open the file error :%d\n", errno);
+        fprintf(stderr, "enable to open the file %s error :%d\n", fragmentPath, errno);
         exit(-1);
     }
 
