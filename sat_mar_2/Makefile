@@ -10,7 +10,7 @@ OBJ := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 CPPFLAGS := -Iinclude							# -I is a preprocessor flag, not a compiler flag
 CFLAGS   := -Wall -g3
 LDFLAGS  :=										# -L is a linker flag
-LDLIBS   := -lglfw -lGL -lX11 -lpthread -lXrandr -lXi -ldl
+LDLIBS   := -lglfw -lGL -lX11 -lpthread -lXrandr -lXi -ldl -lm
 
 all: $(EXE)
 

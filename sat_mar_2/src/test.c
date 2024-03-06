@@ -3,6 +3,7 @@
 #include <GL/glext.h>
 #include <GLFW/glfw3.h>
 #include <stdio.h>
+#include <math.h>
 #include "shader.h"
 
 #define SHADER_FILES_DIR "/home/madrajib/workspace/Courses/opengl/sat_mar_2/src" 
@@ -64,6 +65,12 @@ int main(void) {
         glClear(GL_COLOR_BUFFER_BIT);
 
         shader_use(&shader);
+
+        float timeval = glfwGetTime();
+        float green =  sin(timeval) / 2.0f + 0.5f;
+        int vertexColorLoc = glGetUniformLocation(shader.ID, "myColor");
+        glUniform4f(vertexColorLoc, 0.0f, green, 0.0f, 1.0f);
+
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3);
         // check and call events and swap the buffers
