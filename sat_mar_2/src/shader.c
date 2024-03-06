@@ -11,13 +11,13 @@ static void checkCompileErrors(unsigned int shader, shader_type_t type) {
         glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
         if (!success) {
             glGetShaderInfoLog(shader, 1024, NULL, infoLog);
-            fprintf(stderr, "ERROR::shader_compilation_error of type: %s\n", infoLog);
+            fprintf(stderr, "ERROR::shader_compilation_error in :%d of type: %s\n", type, infoLog);
         }
     } else {
         glGetShaderiv(shader, GL_LINK_STATUS, &success);
         if (!success) {
             glGetShaderInfoLog(shader, 1024, NULL, infoLog);
-            fprintf(stderr, "ERROR::program_linking_error of type: %s\n", infoLog);
+            fprintf(stderr, "ERROR::program_linking_error in :%d of type: %s\n", type, infoLog);
         }
         
     }
