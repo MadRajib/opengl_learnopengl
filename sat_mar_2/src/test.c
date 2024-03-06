@@ -6,9 +6,8 @@
 #include <math.h>
 #include "shader.h"
 
-#define SHADER_FILES_DIR "/home/madrajib/workspace/Courses/opengl/sat_mar_2/src" 
-#define VERTEX_SHADER_PATH SHADER_FILES_DIR "/vertex.vs"
-#define FRAGMENT_SHADER_PATH SHADER_FILES_DIR "/fragment.fs"
+#define VERTEX_SHADER_PATH "./assets/vertex.vs"
+#define FRAGMENT_SHADER_PATH "./assets/fragment.fs"
 
 void framebuffer_size_callback(GLFWwindow* win, int width, int height);
 void processInput(GLFWwindow *win);
