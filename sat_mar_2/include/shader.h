@@ -118,8 +118,8 @@ static void shader_setBool(shader_t *shader, bool value) {
     glUniform1i(glGetUniformLocation(shader->ID,""), (int)value);
 }
 
-static void shader_setInt(shader_t *shader, int value) {
-    glUniform1i(glGetUniformLocation(shader->ID,""), value);
+static void shader_setInt(shader_t *shader, char *name, int value) {
+    glUniform1i(glGetUniformLocation(shader->ID, name), value);
 }
 static void shader_setFloat(shader_t *shader, float value) {
     glUniform1i(glGetUniformLocation(shader->ID,""), value);
